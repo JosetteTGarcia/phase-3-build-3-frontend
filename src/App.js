@@ -1,10 +1,20 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import AllPayments from './components/AllPayments'
+import Home from './components/Home'
+import NavBar from './components/NavBar';
+
 
 
 function App() {
   return (
-    <div>
-     <h1> Hello world! </h1>
-    </div>
+    <Router>
+      <NavBar/>
+      <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/allpayments" element={<AllPayments/>} />
+        </Routes>
+    </Router>
   );
 }
 
