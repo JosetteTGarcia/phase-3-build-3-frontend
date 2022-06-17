@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 function Home(){
   const classes = useStyles();
 
+  return(
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs>
@@ -33,7 +34,7 @@ function Home(){
         </Grid>
       </Grid>
     </div>
-
+  )
 
 
 }
