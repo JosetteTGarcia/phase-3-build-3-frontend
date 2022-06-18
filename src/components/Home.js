@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles, Paper, Grid } from '@material-ui/core';
+import PaymentSubmitForm from './PaymentSubmitForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ function Home(){
           <Paper className={classes.paper}>Top Categories</Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>Payment Submission Form</Paper>
+          <PaymentSubmitForm/>
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>Top Stores</Paper>
