@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {TextField, Select, FormControl, MenuItem, InputLabel, Box, makeStyles} from '@material-ui/core';
+import {TextField, Select, FormControl, MenuItem, InputLabel, Box, makeStyles, FormGroup} from '@material-ui/core';
 // import DateFnsUtils from "@date-io/date-fns";
 // import {
 //   MuiPickersUtilsProvider,
@@ -95,25 +95,25 @@ function PaymentSubmitForm(){
   return (
   <div>
       <h1> Submit Your Payment! </h1>
-  <FormControl className={classes.formControl}>
+  <FormGroup className={classes.formControl}>
   <TextField 
     id="standard-basic" 
     label="Amount" 
     name="amount"
     value={formData.amount}
     onChange={handleChange}
-  /> <n/>
+  /> 
   <TextField
         id="date"
         label="Date"
         type="date"
         name="date_paid"
-        defaultValue="YYYY-MM-DD"
+        defaultValue="yyyy-MM-dd"
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
         }}
-      /> <br/>
+      /> 
   <TextField 
     id="standard-basic" 
     label="Paid To:"
@@ -128,7 +128,7 @@ function PaymentSubmitForm(){
     value={formData.description}
     onChange={handleChange}
   /> 
-  <InputLabel id="need-or-want-label">Need or Want?</InputLabel>
+  {/* <InputLabel id="need-or-want-label">Need or Want?</InputLabel> */}
   <Select
       labelId="need-or-want-label"
       id="standard-basic"
@@ -140,7 +140,7 @@ function PaymentSubmitForm(){
       <MenuItem value="true">Needed</MenuItem>
       <MenuItem value="false">Wanted</MenuItem>
   </Select>
-  <InputLabel id="category-label">Category</InputLabel>
+  {/* <InputLabel id="category-label">Category</InputLabel> */}
   <Select
       labelId="category-label"
       id="standard-basic"
@@ -154,7 +154,7 @@ function PaymentSubmitForm(){
 
 
 
-  </FormControl>
+  </FormGroup>
 
 
     
