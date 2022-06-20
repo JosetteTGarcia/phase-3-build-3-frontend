@@ -19,61 +19,37 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function PaymentSubmitForm(){
+function PaymentSubmitForm({payments}){
+  const [categories, setCategories] = useState([])
+
+
   const classes = useStyles();
   const [formData, setFormData] = useState({
     amount: "",
     date_paid: "",
     description: "",
-    store: "",
-    is_need: false,
-    category_id: "",
-    store_id: "",
+    is_need: "",
   })
 
-  function handleChange(e){
-    if(e.target.name === "isNeeded"){
-     setFormData({
-       ...formData,
-         is_needed: !formData.is_need
-     }) 
-    } else {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-      })
-    }
-   }
+  useEffect(() => {
+    fetch('http://localhost:9292/categories')
+    .then((resp) => resp.json())
+    .then((data) => setCategories(data))
+  },[])
+  
+  // const categoryItems = categories.map((category) => (
+  //     <MenuItem key={category.id} value={formData.category_id}>{category.category_type}</MenuItem>
 
-   function postNewCategory(e){
-    e.preventDefault();
-    fetch("http://localhost:9292/categories", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData.category)
-    })
-    .then(resp => resp.json())
-    .then(data => {
-      console.log(data)
-    })
-  }
+  //   ));
 
-  function postNewStore(e){
-    e.preventDefault();
-    fetch("http://localhost:9292/stores", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData.category)
-    })
-    .then(resp => resp.json())
-    .then(data => {
-      console.log(data)
-    })
+
+  function handleChange(event) {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+    // console.log({[event.target.name]: event.target.value })
   }
+   
+
+
 
    function handleSubmit(e){
     e.preventDefault();
@@ -95,7 +71,10 @@ function PaymentSubmitForm(){
   return (
   <div>
       <h1> Submit Your Payment! </h1>
-  <FormGroup className={classes.formControl}>
+  <FormGroup
+   className={classes.formControl}
+   onSubmit={handleSubmit}
+  >
   <TextField 
     id="standard-basic" 
     label="Amount" 
@@ -108,19 +87,13 @@ function PaymentSubmitForm(){
         label="Date"
         type="date"
         name="date_paid"
-        defaultValue="yyyy-MM-dd"
+        value={formData.date_paid}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
         }}
+        onChange={handleChange}
       /> 
-  <TextField 
-    id="standard-basic" 
-    label="Paid To:"
-    name="store" 
-    value={formData.store}
-    onChange={handleChange}
-  /> 
   <TextField 
     id="standard-basic" 
     label="Description"
@@ -140,19 +113,32 @@ function PaymentSubmitForm(){
       <MenuItem value="true">Needed</MenuItem>
       <MenuItem value="false">Wanted</MenuItem>
   </Select>
-  {/* <InputLabel id="category-label">Category</InputLabel> */}
+  {/* <Select
+      labelId="category-label"
+      id="standard-basic"
+      name="store"
+      label="Store"
+      value={formData.store_id}
+      onChange={handleChange}
+    >
+   {storeItems}
+  </Select> */}
   <Select
       labelId="category-label"
       id="standard-basic"
-      name="category"
+      name="category_id"
       label="Category"
-      value={formData.category}
+      value={formData.category_id}
       onChange={handleChange}
     >
-      <MenuItem value="category">Categories here</MenuItem>
+   {categories.map((category) => (
+      <MenuItem key={category.id} value={category.id}>{category.category_type}</MenuItem>
+
+    ))}
   </Select>
 
 
+  <input type="submit" value="Submit" />
 
   </FormGroup>
 

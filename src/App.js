@@ -21,7 +21,7 @@ function App() {
     <Router>
       <NavBar/>
       <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home payments={payments} />} />
             <Route path="/allpayments" element={<AllPayments payments={payments}/>} />
         </Routes>
     </Router>

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home(){
+function Home({payments}){
   const classes = useStyles();
 
   return(
@@ -29,7 +29,7 @@ function Home(){
           <Paper className={classes.paper}>Top Categories</Paper>
         </Grid>
         <Grid item xs={6}>
-          <PaymentSubmitForm/>
+          <PaymentSubmitForm payments={payments}/>
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>Top Stores</Paper>
