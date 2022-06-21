@@ -68,28 +68,6 @@ const fetchStores = () => {
       }
   }
    
-
-  // function handleActivitySubmit(e) {
-  //   e.preventDefault();
-  //   const activityData = {...actFormData, resident_id: id}
-  //   fetch("http://localhost:9292/activities", {
-  //       method: "POST",
-  //       headers: {
-  //           "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(activityData)
-  //   })
-  //   .then(r => r.json())
-  //   .then((newActivity) => {
-  //       handleAddNewActivity(newActivity);
-  //       setActFormData({
-  //           activity: "",
-  //           day_of_week: "",
-  //           instructor: "",
-  //       })
-  //   })
-  // }
-
    function handleSubmit(e){
     e.preventDefault();
     console.log(formData)

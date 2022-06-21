@@ -9,7 +9,6 @@ import NavBar from './components/NavBar';
 
 function App() {
   const [payments, setPayments] = useState([])
-  const [selectedPayment, setSelectedPayment] = useState(null);
 
 
 

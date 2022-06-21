@@ -1,7 +1,9 @@
 import React from 'react'
-import { makeStyles, Paper, Grid } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import PaymentSubmitForm from './PaymentSubmitForm';
 import SummaryHeader from './SummaryHeader';
+import TopCatgories from './TopCategories';
+import TopStores from './TopStores';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,13 +28,13 @@ function Home({payments}){
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs>
-          <Paper className={classes.paper}>Top Categories</Paper>
+            <TopStores />
         </Grid>
         <Grid item xs={6}>
           <PaymentSubmitForm payments={payments}/>
         </Grid>
         <Grid item xs>
-          <Paper className={classes.paper}>Top Stores</Paper>
+          <TopCatgories/>
         </Grid>
       </Grid>
     </div>
