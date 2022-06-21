@@ -9,6 +9,8 @@ import NavBar from './components/NavBar';
 
 function App() {
   const [payments, setPayments] = useState([])
+  const [selectedPayment, setSelectedPayment] = useState(null);
+
 
 
   useEffect(() => {
@@ -17,12 +19,19 @@ function App() {
     .then((data) => setPayments(data))
   },[])
   
+  const deletePayment = payment => {
+    setPayments(payments.filter(p => p.id !== payment.id))
+  }
+
   return (
     <Router>
       <NavBar/>
       <Routes>
             <Route path="/" element={<Home payments={payments} />} />
-            <Route path="/allpayments" element={<AllPayments payments={payments}/>} />
+            <Route path="/allpayments" element={<AllPayments 
+            payments={payments} 
+            deletePayment={deletePayment}
+            />} />
         </Routes>
     </Router>
   );

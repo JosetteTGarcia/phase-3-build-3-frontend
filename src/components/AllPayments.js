@@ -1,11 +1,18 @@
-import React from 'react'
+import React, {useState} from "react";
 import Payment from './Payment';
 
-function AllPayments({payments}){
+function AllPayments({
+  payments,
+  deletePayment
+}){
+
 
   const paymentRows = payments.map((payment) => (
-    <Payment key={payment.id} payment={payment}/>
-
+    <Payment 
+      key={payment.id} 
+      payment={payment}
+      deletePayment={deletePayment}
+    />
     ));
 
   

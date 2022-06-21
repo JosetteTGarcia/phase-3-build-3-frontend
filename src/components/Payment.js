@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState} from "react";
 
-function Payment({payment}) {
+function Payment({payment, deletePayment}) {
 
-
+  const handleDelete = () => {
+    fetch(`http://localhost:9292/payments/${payment.id}`, {
+      method: "DELETE",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        deletePayment(data)
+      })
+  }
   return (
     <tr>
       <td>${parseFloat(payment.amount).toFixed(2)}</td>
@@ -11,7 +23,7 @@ function Payment({payment}) {
       <td>{payment.isNeed? "Needed" : "Wanted"}</td>
       <td>{payment.store.name}</td>
       <td>{payment.category.category_type}</td>
-      <td> <button type="button" className="btn btn-primary">
+      <td> <button type="button" className="btn btn-primary" onClick={ handleDelete }>
         Remove Payment
       </button>
       </td>
