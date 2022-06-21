@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {TextField, Select, MenuItem ,makeStyles, Button, Checkbox} from '@material-ui/core';
+import {TextField, Select, MenuItem ,makeStyles, Button, Checkbox, FormControl, FormHelperText, FormLabel} from '@material-ui/core';
 // import DateFnsUtils from "@date-io/date-fns";
 // import {
 //   MuiPickersUtilsProvider,
@@ -119,41 +119,52 @@ const fetchStores = () => {
       name="description" 
       value={formData.description}
       onChange={handleChange}
-    /> <br/>
-    {/* <InputLabel id="need-or-want-label">Need or Want?</InputLabel> */}
+    /> <br/> <br/>
+    <FormLabel component="legend">Was this purchase a need?</FormLabel>
     <Checkbox 
-          id="is_needed"
+          id="standard-basic"           
           name="is_need"
           value={true}
           label="Item needed?" 
           onChange={handleChange}
         />  <br />
+    <FormControl className={classes.formControl}>
     <Select
-        labelId="category-label"
-        id="standard-basic"
-        name="store_id"
-        label="Store"
-        value={formData.store_id}
-        onChange={handleChange}
-      >
-    {stores.map((store) => (
+      displayEmpty
+      className={classes.selectEmpty}
+      name="store_id"
+      value={formData.store_id}
+      onChange={handleChange}
+      inputProps={{ 'aria-label': 'Without label' }}
+    >
+      <MenuItem value="" disabled>
+            Store/Company
+      </MenuItem>
+      {stores.map((store) => (
         <MenuItem key={store.id} value={store.id}>{store.name}</MenuItem>
-
       ))} 
+      <FormHelperText>Store/Company</FormHelperText>
     </Select> <br/>
+    </FormControl>
+    <FormControl className={classes.formControl}>
     <Select
-        labelId="category-label"
-        id="standard-basic"
-        name="category_id"
-        label="Category"
-        value={formData.category_id}
-        onChange={handleChange}
+      displayEmpty
+      id="standard-basic"
+      className={classes.selectEmpty}
+      name="category_id"
+      value={formData.category_id}
+      onChange={handleChange}
+      inputProps={{ 'aria-label': 'Without label' }}
       > 
-    {categories.map((category) => (
+      <MenuItem value="" disabled>
+            Store/Company
+      </MenuItem>
+    { categories.map((category) => (
         <MenuItem key={category.id} value={category.id}>{category.category_type}</MenuItem>
-
       ))}
-    </Select> <br/>
+      <FormHelperText>Category</FormHelperText>
+    </Select> 
+    </FormControl> <br/>
     <Button variant="contained" color="primary" type="submit">
           Submit
         </Button>

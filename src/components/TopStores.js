@@ -29,7 +29,7 @@ function handleStoreSubmit(e){
 
   return(
     <div>
-      <h4> Add a new Category: </h4>
+      <h4> Add a new Store: </h4>
       <form
       onSubmit={handleStoreSubmit}
       >
