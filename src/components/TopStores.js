@@ -41,14 +41,14 @@ function handleStoreSubmit(e){
       >
       <TextField 
         id="standard-basic" 
-        label="store" 
+        label="Store" 
         name="name"
         value={newStore.name}
         onChange={handleChange}
       /> <br/>
       <TextField 
         id="standard-basic" 
-        label="store" 
+        label="Type of Store" 
         name="type_of_retailer"
         value={newStore.type_of_retailer}
         onChange={handleChange}

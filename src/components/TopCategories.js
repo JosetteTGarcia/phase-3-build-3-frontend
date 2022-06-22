@@ -35,7 +35,7 @@ function handleCategorySubmit(e){
       >
       <TextField 
         id="standard-basic" 
-        label="category" 
+        label="Category" 
         name="category_type"
         value={newCategory}
         onChange={handleChange}
