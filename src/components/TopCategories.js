@@ -15,10 +15,9 @@ function handleCategorySubmit(e){
   fetch("http://localhost:9292/categories", {
     method: 'POST',
     headers: {
-      "Accept": "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newCategory)
+    body: JSON.stringify({category_type: newCategory})
   })
   .then(resp => resp.json())
   .then(data => {

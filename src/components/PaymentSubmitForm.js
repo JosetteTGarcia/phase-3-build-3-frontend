@@ -22,16 +22,14 @@ const useStyles = makeStyles((theme) => ({
 function PaymentSubmitForm({payments}){
   const [categories, setCategories] = useState([])
   const [stores, setStores] = useState([])
-
-
   const classes = useStyles();
   const [formData, setFormData] = useState({
-    payment: {
       amount: "",
       date_paid: "",
       description: "",
-      is_need: false
-    }
+      is_need: false,
+      store_id: null,
+      category_id: null,
   })
 
 const fetchCategories = () => {

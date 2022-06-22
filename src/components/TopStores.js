@@ -3,10 +3,16 @@ import {TextField, Button} from '@material-ui/core';
 
 
 function TopStores(){
-const [newStore, setNewStore] = useState("")
+const [newStore, setNewStore] = useState({
+  name: "",
+  type_of_retailer: ""
+})
 
 const handleChange = (event) => {
-  setNewStore(event.target.value);
+  setNewStore({
+    ...newStore, 
+    [event.target.name]: event.target.value 
+  });
 };
 
 
@@ -15,7 +21,6 @@ function handleStoreSubmit(e){
   fetch("http://localhost:9292/stores", {
     method: 'POST',
     headers: {
-      "Accept": "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(newStore)
@@ -37,7 +42,14 @@ function handleStoreSubmit(e){
         id="standard-basic" 
         label="store" 
         name="name"
-        value={newStore}
+        value={newStore.name}
+        onChange={handleChange}
+      /> <br/>
+      <TextField 
+        id="standard-basic" 
+        label="store" 
+        name="type_of_retailer"
+        value={newStore.type_of_retailer}
         onChange={handleChange}
       /> <br/>
       <Button variant="contained" color="primary" type="submit">
