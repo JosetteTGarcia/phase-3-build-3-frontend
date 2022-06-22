@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState}from 'react'
 import { makeStyles, Grid } from '@material-ui/core';
 import PaymentSubmitForm from './PaymentSubmitForm';
 import SummaryHeader from './SummaryHeader';
@@ -16,9 +16,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home({payments}){
-  const classes = useStyles();
 
+
+function Home(){
+  const classes = useStyles();
+  const [categories, setCategories] = useState([])
+  const [stores, setStores] = useState([])
+
+
+  const fetchCategories = () => {
+    fetch('http://localhost:9292/categories')
+    .then((resp) => resp.json())
+    .then((data) => setCategories(data))
+  }
+  
+  const fetchStores = () => {
+    fetch('http://localhost:9292/stores')
+    .then((resp) => resp.json())
+    .then((data) => setStores(data))
+  }
+  
+    useEffect(() => {
+      fetchCategories()
+      fetchStores()
+    },[stores, categories ])
+
+    const addStores = store => {
+      setStores([...stores, store])
+    }
+
+    const addCategory = category => {
+      setCategories([...categories, category])
+    }
+
+    
   return(
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -28,13 +59,20 @@ function Home({payments}){
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs>
-            <TopStores />
+            <TopStores
+            onAddStore={addStores}
+            />
         </Grid>
         <Grid item xs={6}>
-          <PaymentSubmitForm payments={payments}/>
+          <PaymentSubmitForm 
+            stores={stores} 
+            categories={categories}
+            />
         </Grid>
         <Grid item xs>
-          <TopCatgories/>
+          <TopCatgories
+          onAddCategory={addCategory}
+          />
         </Grid>
       </Grid>
     </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {TextField, Select, MenuItem ,makeStyles, Button, Checkbox, FormControl, FormHelperText, FormLabel} from '@material-ui/core';
 // import DateFnsUtils from "@date-io/date-fns";
 // import {
@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function PaymentSubmitForm({payments}){
-  const [categories, setCategories] = useState([])
-  const [stores, setStores] = useState([])
+function PaymentSubmitForm({ stores, categories }){
   const classes = useStyles();
   const [formData, setFormData] = useState({
       amount: "",
@@ -31,24 +29,15 @@ function PaymentSubmitForm({payments}){
       store_id: null,
       category_id: null,
   })
-
-const fetchCategories = () => {
-  fetch('http://localhost:9292/categories')
-  .then((resp) => resp.json())
-  .then((data) => setCategories(data))
-}
-
-const fetchStores = () => {
-  fetch('http://localhost:9292/stores')
-  .then((resp) => resp.json())
-  .then((data) => setStores(data))
-}
-
-  useEffect(() => {
-    fetchCategories()
-    fetchStores()
-  },[])
   
+
+  const categoriesList = categories.map((category) => (
+    <MenuItem key={category.id} value={category.id}>{category.category_type}</MenuItem>
+  ))
+
+  const storesList = stores.map((store) => (
+    <MenuItem key={store.id} value={store.id}>{store.name}</MenuItem>
+  ))
 
 
   function handleChange(event) {
@@ -138,9 +127,10 @@ const fetchStores = () => {
       <MenuItem value="" disabled>
             Store/Company
       </MenuItem>
-      {stores.map((store) => (
+      {storesList}
+      {/* {stores.map((store) => (
         <MenuItem key={store.id} value={store.id}>{store.name}</MenuItem>
-      ))} 
+      ))}  */}
       <FormHelperText>Store/Company</FormHelperText>
     </Select> <br/>
     </FormControl>
@@ -155,11 +145,12 @@ const fetchStores = () => {
       inputProps={{ 'aria-label': 'Without label' }}
       > 
       <MenuItem value="" disabled>
-            Store/Company
+            Category
       </MenuItem>
-    { categories.map((category) => (
+      {categoriesList}
+    {/* { categories.map((category) => (
         <MenuItem key={category.id} value={category.id}>{category.category_type}</MenuItem>
-      ))}
+      ))} */}
       <FormHelperText>Category</FormHelperText>
     </Select> 
     </FormControl> <br/>

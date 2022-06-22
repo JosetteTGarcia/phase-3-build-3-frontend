@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {TextField, Button} from '@material-ui/core';
 
 
-function TopStores(){
+function TopStores({onAddStore}){
 const [newStore, setNewStore] = useState({
   name: "",
   type_of_retailer: ""
@@ -28,6 +28,7 @@ function handleStoreSubmit(e){
   .then(resp => resp.json())
   .then(data => {
     console.log(data)
+    onAddStore()
   })
  }
 

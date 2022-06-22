@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {TextField, Button} from '@material-ui/core';
 
 
-function TopCatgories(){
+function TopCatgories({onAddCategory}){
 const [newCategory, setNewCategory] = useState("")
 
 const handleChange = (event) => {
@@ -22,6 +22,7 @@ function handleCategorySubmit(e){
   .then(resp => resp.json())
   .then(data => {
     console.log(data)
+    onAddCategory()
   })
  }
 
