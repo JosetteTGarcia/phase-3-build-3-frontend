@@ -36,17 +36,19 @@ function Home(){
     .then((data) => setStores(data))
   }
   
+
     useEffect(() => {
       fetchCategories()
       fetchStores()
-    },[stores, categories ])
+    },[])
 
-    const addStores = store => {
+    const addStores = (store) => {
       setStores([...stores, store])
     }
 
-    const addCategory = category => {
-      setCategories([...categories, category])
+    const addCategory = newCategory => {
+      setCategories([...categories, newCategory])
+      console.log(categories)
     }
 
     

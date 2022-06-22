@@ -28,7 +28,7 @@ function handleStoreSubmit(e){
   .then(resp => resp.json())
   .then(data => {
     console.log(data)
-    onAddStore()
+    onAddStore(data)
   })
  }
 

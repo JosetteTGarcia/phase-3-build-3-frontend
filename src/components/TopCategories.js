@@ -22,7 +22,7 @@ function handleCategorySubmit(e){
   .then(resp => resp.json())
   .then(data => {
     console.log(data)
-    onAddCategory()
+    onAddCategory(data)
   })
  }
 
