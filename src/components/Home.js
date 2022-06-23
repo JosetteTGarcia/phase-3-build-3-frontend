@@ -18,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Home(){
+function Home({onAddPayment, payments}){
   const classes = useStyles();
   const [categories, setCategories] = useState([])
   const [stores, setStores] = useState([])
-
 
   const fetchCategories = () => {
     fetch('http://localhost:9292/categories')
@@ -42,6 +41,7 @@ function Home(){
       fetchStores()
     },[])
 
+
     const addStores = (store) => {
       setStores([...stores, store])
     }
@@ -51,12 +51,13 @@ function Home(){
       console.log(categories)
     }
 
+
     
   return(
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs>
-          <SummaryHeader/>
+          <SummaryHeader payments={payments}/>
         </Grid>
       </Grid>
       <Grid container spacing={3}>
@@ -67,6 +68,7 @@ function Home(){
         </Grid>
         <Grid item xs={6}>
           <PaymentSubmitForm 
+            onAddPayment={onAddPayment}
             stores={stores} 
             categories={categories}
             />

@@ -22,11 +22,15 @@ function App() {
     setPayments(payments.filter(p => p.id !== payment.id))
   }
 
+  const addPayment = newPayment => {
+    setPayments([...payments, newPayment])
+    console.log(payments)
+  }
   return (
     <Router>
       <NavBar/>
       <Routes>
-            <Route path="/" element={<Home payments={payments} />} />
+            <Route path="/" element={<Home payments={payments}  onAddPayment={addPayment} />} />
             <Route path="/allpayments" element={<AllPayments 
             payments={payments} 
             deletePayment={deletePayment}

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function PaymentSubmitForm({ stores, categories }){
+function PaymentSubmitForm({ stores, categories, onAddPayment }){
   const classes = useStyles();
   const [formData, setFormData] = useState({
       amount: "",
@@ -57,7 +57,6 @@ function PaymentSubmitForm({ stores, categories }){
    
    function handleSubmit(e){
     e.preventDefault();
-    console.log(formData)
     fetch("http://localhost:9292/payments", {
       method: 'POST',
       headers: {
@@ -68,6 +67,7 @@ function PaymentSubmitForm({ stores, categories }){
     .then(resp => resp.json())
     .then(data => {
       console.log(data)
+      onAddPayment(data)
     })
    }
 
@@ -116,6 +116,7 @@ function PaymentSubmitForm({ stores, categories }){
           onChange={handleChange}
         />  <br />
     <FormControl className={classes.formControl}>
+    <FormLabel component="legend">Store:</FormLabel>
     <Select
       displayEmpty
       className={classes.selectEmpty}
@@ -135,6 +136,7 @@ function PaymentSubmitForm({ stores, categories }){
     </Select> <br/>
     </FormControl>
     <FormControl className={classes.formControl}>
+    <FormLabel component="legend">Category:</FormLabel>
     <Select
       displayEmpty
       id="standard-basic"
@@ -151,7 +153,7 @@ function PaymentSubmitForm({ stores, categories }){
     {/* { categories.map((category) => (
         <MenuItem key={category.id} value={category.id}>{category.category_type}</MenuItem>
       ))} */}
-      <FormHelperText>Category</FormHelperText>
+      {/* <FormHelperText>Category</FormHelperText> */}
     </Select> 
     </FormControl> <br/>
     <Button variant="contained" color="primary" type="submit">
