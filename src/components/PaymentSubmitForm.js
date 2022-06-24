@@ -1,10 +1,5 @@
-import React, { useState, useEffect} from "react";
-import {TextField, Select, MenuItem ,makeStyles, Button, Checkbox, FormControl, FormHelperText, FormLabel} from '@material-ui/core';
-// import DateFnsUtils from "@date-io/date-fns";
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardDatePicker
-// } from "@material-ui/pickers";
+import React, { useState} from "react";
+import {TextField, Select, MenuItem ,makeStyles, Button, Checkbox, FormControl, FormHelperText, FormLabel, Container} from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +70,8 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
 
   return (
   <div>
-      <h1> Submit Your Payment! </h1>
+    <Container maxWidth="sm">
+      <h2> Submit Your Payment! </h2>
   <form
    className={classes.formControl}
    onSubmit={handleSubmit}
@@ -87,7 +83,7 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
       name="amount"
       value={formData.amount}
       onChange={handleChange}
-    /> <br/>
+    /> <span> </span>
     <TextField
           id="date"
           label="Date"
@@ -100,14 +96,9 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
           }}
           onChange={handleChange}
         /> <br/>
-    <TextField 
-      id="standard-basic" 
-      label="Description"
-      name="description" 
-      value={formData.description}
-      onChange={handleChange}
-    /> <br/> <br/>
-    <FormLabel component="legend">Was this purchase a need?</FormLabel>
+
+
+    <FormLabel>Was this purchase a need?</FormLabel>
     <Checkbox 
           id="standard-basic"           
           name="is_need"
@@ -115,6 +106,7 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
           label="Item needed?" 
           onChange={handleChange}
         />  <br />
+
     <FormControl className={classes.formControl}>
     <FormLabel component="legend">Store:</FormLabel>
     <Select
@@ -129,38 +121,43 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
             Store/Company
       </MenuItem>
       {storesList}
-      {/* {stores.map((store) => (
-        <MenuItem key={store.id} value={store.id}>{store.name}</MenuItem>
-      ))}  */}
       <FormHelperText>Store/Company</FormHelperText>
-    </Select> <br/>
-    </FormControl>
-    <FormControl className={classes.formControl}>
-    <FormLabel component="legend">Category:</FormLabel>
-    <Select
-      displayEmpty
-      id="standard-basic"
-      className={classes.selectEmpty}
-      name="category_id"
-      value={formData.category_id}
-      onChange={handleChange}
-      inputProps={{ 'aria-label': 'Without label' }}
-      > 
-      <MenuItem value="" disabled>
-            Category
-      </MenuItem>
-      {categoriesList}
-    {/* { categories.map((category) => (
-        <MenuItem key={category.id} value={category.id}>{category.category_type}</MenuItem>
-      ))} */}
-      {/* <FormHelperText>Category</FormHelperText> */}
     </Select> 
-    </FormControl> <br/>
+    <br/>
+    </FormControl>
+
+
+    <FormControl className={classes.formControl}>
+      <FormLabel component="legend">Category:</FormLabel>
+        <Select
+          displayEmpty
+          id="standard-basic"
+          className={classes.selectEmpty}
+          name="category_id"
+          value={formData.category_id}
+          onChange={handleChange}
+          inputProps={{ 'aria-label': 'Without label' }}
+          > 
+          <MenuItem value="" disabled>
+                Category
+          </MenuItem>
+          {categoriesList}
+        </Select> 
+      </FormControl> <br/>
+
+      <TextField 
+          className={classes.textField}
+          id="standard-basic" 
+          label="Description"
+          name="description" 
+          value={formData.description}
+          onChange={handleChange}
+          /> <span> </span>
     <Button variant="contained" color="primary" type="submit">
           Submit
-        </Button>
+      </Button>
     </form>
-    
+    </Container>
   </div>
 
   )
