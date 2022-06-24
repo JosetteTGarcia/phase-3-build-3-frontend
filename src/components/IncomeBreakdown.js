@@ -2,7 +2,15 @@ import React from "react";
 
 
 
-function IncomeBreakdown({leftoverIncome, needs, wants, savings}){
+function IncomeBreakdown({
+  leftoverIncome, 
+  needs, 
+  wants, 
+  savings,
+  savingsPercentage,
+  wantsPercentage,
+  needsPercentage
+}){
 
 
   return(
