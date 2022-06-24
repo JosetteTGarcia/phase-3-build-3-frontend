@@ -105,7 +105,7 @@ return (
   <Grid item xs={4}>
     <Paper className={classes.paper}>
       <h4> Total Income This Month:</h4>
-      <h4>${monthlyIncome}</h4>
+      <h4>${monthlyIncome.toFixed(2)}</h4>
     </Paper>
   </Grid>
   <Grid item xs={4}>
@@ -117,7 +117,7 @@ return (
   <Grid item xs={4}>
     <Paper className={classes.paper}>
       <h4>Unused Funds:</h4>
-      <h4>{leftoverIncome}</h4>
+      <h4>${leftoverIncome}</h4>
     </Paper>
   </Grid> 
 </Grid>
