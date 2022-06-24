@@ -8,17 +8,47 @@ function SummaryHeader({payments}){
   const [monthlyIncome, setMonthlyIncome] = useState(0)
   const [newFunds, setNewFunds] = useState(0)
   const [paymentsTotal, setPaymentsTotal] = useState([])
+  const [savings, setSavings] = useState(0)
+  const [needs, setNeeds] = useState(0)
+  const [wants, setWants] = useState(0)
 
 
-function settingPaymentsTotal(){
-  const sumOfPayments = payments.map((payment) => (payment.amount))
-  .reduce(function(previousAmount, a){ return previousAmount + a})
-  setPaymentsTotal(sumOfPayments)
-}
+
+// function settingPaymentsTotal(){
+//   const sumOfPayments = payments.map((payment) => (payment.amount))
+//   .reduce((previousAmount, a) =>  { return previousAmount + a}, 0)
+//   setPaymentsTotal(sumOfPayments)
+// }
 
   useEffect(() => {
-    settingPaymentsTotal()
-  },[])
+    let neededPurchases = []
+    let wantedPurchases = []
+    let allPurchases = []
+      payments.map((payment) => {
+      if (payment.is_need){
+        neededPurchases = [...neededPurchases, payment.amount]
+      }
+      else{
+        wantedPurchases = [...wantedPurchases, payment.amount]
+      }
+      allPurchases = neededPurchases.concat(wantedPurchases)
+      return (neededPurchases , wantedPurchases, allPurchases)
+    })
+    // console.log(sumOfPayments(neededPurchases))
+    // console.log(sumOfPayments(wantedPurchases))
+    setSavings(monthlyIncome)
+    setPaymentsTotal(() => sumOfPayments(allPurchases))
+    })
+    
+    function sumOfPayments(paymentArray){
+      const sumOfPayments = paymentArray.reduce((previousAmount, a) =>  { return previousAmount + a}, 0)
+      return sumOfPayments.toFixed(2)
+    }
+    
+  //   payment.amount)
+  //   .reduce((previousAmount, a) =>  { return previousAmount + a}, 0)
+  //   setPaymentsTotal(sumOfPayments)
+  // },[payments])
 
 
 const handleNewFundsChange = e =>{
@@ -28,12 +58,11 @@ const handleNewFundsChange = e =>{
   const handleSubmit = e => {
     e.preventDefault();
     setMonthlyIncome((monthlyIncome) => monthlyIncome + newFunds || 0)
-    console.log(monthlyIncome)
   }
 
 return (
 <div>
-  ${monthlyIncome}
+  <h1> ${monthlyIncome} </h1>
   <form noValidate autoComplete="off" onSubmit={handleSubmit}>
     <label> Got paid? Add amount here:</label>
       <TextField id="standard-basic" label="$$$" defaultValue="0" onChange={handleNewFundsChange}/>
@@ -42,7 +71,7 @@ return (
 
 <h1> ${paymentsTotal}</h1>
   <div>
-    <IncomeBreakdown leftoverIncome={monthlyIncome}/>
+    <IncomeBreakdown savings={savings} needs={needs} wants={wants} />
   </div>
 </div>
 

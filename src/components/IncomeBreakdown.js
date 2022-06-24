@@ -1,18 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 
 
 
-function IncomeBreakdown({leftoverIncome}){
-  const [savings, setSavings] = useState(0)
-  const [needs, setNeeds] = useState(0)
-  const [wants, setWants] = useState(0)
-
-
-  useEffect(() => {
-    setSavings(leftoverIncome)
-    }, [leftoverIncome])
-
-    
+function IncomeBreakdown({leftoverIncome, needs, wants, savings}){
 
 
   return(
