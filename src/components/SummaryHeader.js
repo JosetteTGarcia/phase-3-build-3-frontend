@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  paper2: {
+    padding: theme.spacing(1),
+    textAlign: 'center',
+  },
 }));
 
 
@@ -61,9 +65,31 @@ function SummaryHeader({payments}){
       return sumOfPayments.toFixed(2)
     }
 
-  const wantsPercentage = (wants/monthlyIncome)*100
-  const needsPercentage = (needs/monthlyIncome)*100
-  const savingsPercentage = (savings/monthlyIncome)*100
+  const wantsPercentage = () => {
+    if (wants === 0 ){
+      return "0"
+    }
+    else {
+      return (wants/monthlyIncome)*100
+    }
+  } 
+  const needsPercentage = () => {
+    if (wants === 0 ){
+      return "0"
+    }
+    else {
+      return (needs/monthlyIncome)*100
+    }
+  } 
+  const savingsPercentage = () => {
+    if (wants === 0 ){
+      return "0"
+    }
+    else {
+      return (savings/monthlyIncome)*100
+    }
+  } 
+
 
   
     
@@ -82,19 +108,24 @@ return (
 <Grid container spacing={1}>
   <Grid item xs={4}>
     <Paper className={classes.paper}>
-      <h1>{isNaN(wantsPercentage) ? 0: wantsPercentage}%</h1> 
+      <h1 style={{ color: (wantsPercentage > 30) ? "red": "green" }}>
+        {isNaN(wantsPercentage) ? 0: wantsPercentage}%
+      </h1> 
       <h3>Wants</h3>
     </Paper>
   </Grid>
   <Grid item xs={4}>
     <Paper className={classes.paper}>
-      <h1> {isNaN(savingsPercentage) ? 0: savingsPercentage}% </h1> 
+      <h1 style={{ color: (savingsPercentage > 20) ? "green": "red" }}> 
+        {isNaN(savingsPercentage) ? 0: savingsPercentage}% </h1> 
       <h3>Savings</h3>
     </Paper>
   </Grid>
   <Grid item xs={4}>
     <Paper className={classes.paper}>
-      <h1>{isNaN(needsPercentage) ? 0: needsPercentage}%</h1> 
+      <h1 style={{ color: (needsPercentage > 50) ? "red": "green" }}>
+        {isNaN(needsPercentage) ? 0: needsPercentage}%
+      </h1> 
       <h3>Needs</h3>
     </Paper>
   </Grid>
@@ -105,7 +136,7 @@ return (
   <Grid item xs={4}>
     <Paper className={classes.paper}>
       <h4> Total Income This Month:</h4>
-      <h4>${monthlyIncome.toFixed(2)}</h4>
+      <h4 >${monthlyIncome.toFixed(2)}</h4>
     </Paper>
   </Grid>
   <Grid item xs={4}>

@@ -35,7 +35,7 @@ function handleStoreSubmit(e){
 
   return(
     <div>
-      <h4> Add a new Store: </h4>
+      <h3> Add a new Store: </h3>
       <form
       onSubmit={handleStoreSubmit}
       >
@@ -52,7 +52,7 @@ function handleStoreSubmit(e){
         name="type_of_retailer"
         value={newStore.type_of_retailer}
         onChange={handleChange}
-      /> <br/>
+      /> <br/> <br/>
       <Button variant="contained" color="primary" type="submit">
           Submit
       </Button>

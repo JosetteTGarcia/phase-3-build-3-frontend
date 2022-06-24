@@ -39,7 +39,7 @@ function handleCategorySubmit(e){
         name="category_type"
         value={newCategory}
         onChange={handleChange}
-      /> <br/>
+      /> <br/> <br/>
       <Button variant="contained" color="primary" type="submit">
           Submit
       </Button>

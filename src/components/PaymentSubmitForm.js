@@ -107,7 +107,7 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
           onChange={handleChange}
         />  <br />
 
-    <FormControl className={classes.formControl}>
+    <FormControl>
     <FormLabel component="legend">Store:</FormLabel>
     <Select
       displayEmpty
@@ -124,10 +124,10 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
       <FormHelperText>Store/Company</FormHelperText>
     </Select> 
     <br/>
-    </FormControl>
+    </FormControl> <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;</span>
 
 
-    <FormControl className={classes.formControl}>
+    <FormControl>
       <FormLabel component="legend">Category:</FormLabel>
         <Select
           displayEmpty
@@ -152,7 +152,7 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
           name="description" 
           value={formData.description}
           onChange={handleChange}
-          /> <span> </span>
+          /> <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
     <Button variant="contained" color="primary" type="submit">
           Submit
       </Button>
