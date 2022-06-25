@@ -5,7 +5,8 @@ import Payment from './Payment';
 
 function AllPayments({
   payments,
-  deletePayment
+  deletePayment,
+  onSuccessfulEdit
 }){
 
 
@@ -14,6 +15,7 @@ function AllPayments({
       key={payment.id} 
       payment={payment}
       deletePayment={deletePayment}
+      onSuccessfulEdit={onSuccessfulEdit}
     />
     ));
 

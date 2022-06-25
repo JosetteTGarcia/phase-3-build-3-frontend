@@ -26,6 +26,14 @@ function App() {
     setPayments([...payments, newPayment])
     console.log(payments)
   }
+
+  function handleEditPayment(updatedPayment) {
+    console.log("hello")
+    const updatedPayments = payments.map((payment) =>
+      payment.id === updatedPayment.id ? updatedPayment : payment
+    );
+    setPayments(updatedPayments);
+  }
   return (
     <Router>
       <NavBar/>
@@ -34,6 +42,7 @@ function App() {
             <Route path="/allpayments" element={<AllPayments 
             payments={payments} 
             deletePayment={deletePayment}
+            onSuccessfulEdit={handleEditPayment}
             />} />
         </Routes>
     </Router>

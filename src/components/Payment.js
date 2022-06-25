@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-function Payment({payment, deletePayment}) {
+function Payment({payment, deletePayment, onSuccessfulEdit}) {
   const [editingPayment, setEditingPayment] = useState(false)
   const [newPaymentData, setNewPaymentData] = useState({
       amount: "",
@@ -11,12 +11,13 @@ function Payment({payment, deletePayment}) {
       category_id: null,
   })
 
+
   const handleEdit = () => {
     setNewPaymentData({
       amount: payment.amount,
       date_paid: payment.date_paid,
       description: payment.description,
-      is_need: payment.isNeed,
+      is_need: payment.is_need,
       store_id: payment.store_id,
       category_id: payment.category_id,
     })
@@ -36,10 +37,11 @@ function Payment({payment, deletePayment}) {
           [event.target.name]: event.target.value 
         });
       }
-      console.log(newPaymentData)
   }
 
-  function handleUpdate(){
+  function handleUpdate(e){
+    e.preventDefault();
+    console.log(newPaymentData)
     fetch(`http://localhost:9292/payments/${payment.id}`, {
       method: "PATCH",
       headers: {
@@ -49,7 +51,9 @@ function Payment({payment, deletePayment}) {
     })
       .then((r) => r.json())
       .then(data => {
-        console.log(data)
+        console.log(data.store)
+        setEditingPayment((editingPayment) => !editingPayment)
+        onSuccessfulEdit(data)
       })
   }
 
@@ -67,13 +71,13 @@ function Payment({payment, deletePayment}) {
       })
   }
   return (
-    <div>
+    <>
       {!editingPayment ? 
     <tr>
       <td>${parseFloat(payment.amount).toFixed(2)}</td>
       <td>{payment.date_paid}</td>
       <td>{payment.description}</td>
-      <td>{payment.isNeed? "Needed" : "Wanted"}</td>
+      <td>{payment.is_need? "Needed" : "Wanted"}</td>
       <td>{payment.store.name}</td>
       <td>{payment.category.category_type}</td>
       <td> <button type="button" className="btn btn-primary" onClick={ handleEdit }>
@@ -98,7 +102,7 @@ function Payment({payment, deletePayment}) {
         <input type="text" name="description" value={newPaymentData.description} onChange={handleChange}/>
       </td>
       <td>
-        {payment.isNeed}
+        {payment.is_need}
       </td>
       <td>{payment.store.name}</td>
       <td>{payment.category.category_type}</td>
@@ -120,8 +124,9 @@ function Payment({payment, deletePayment}) {
       </td>
     </tr> 
 
+
 }
-    </div>
+</>
   );
 }
 
