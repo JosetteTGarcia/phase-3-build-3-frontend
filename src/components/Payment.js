@@ -41,7 +41,6 @@ function Payment({payment, deletePayment, onSuccessfulEdit}) {
 
   function handleUpdate(e){
     e.preventDefault();
-    console.log(newPaymentData)
     fetch(`http://localhost:9292/payments/${payment.id}`, {
       method: "PATCH",
       headers: {
@@ -51,7 +50,6 @@ function Payment({payment, deletePayment, onSuccessfulEdit}) {
     })
       .then((r) => r.json())
       .then(data => {
-        console.log(data.store)
         setEditingPayment((editingPayment) => !editingPayment)
         onSuccessfulEdit(data)
       })

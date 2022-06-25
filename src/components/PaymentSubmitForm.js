@@ -21,8 +21,8 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
       date_paid: "",
       description: "",
       is_need: false,
-      store_id: null,
-      category_id: null,
+      store_id: "",
+      category_id: "",
   })
   
 
@@ -111,6 +111,7 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
     <FormLabel component="legend">Store:</FormLabel>
     <Select
       displayEmpty
+      id="standard-basic"
       className={classes.selectEmpty}
       name="store_id"
       value={formData.store_id}
@@ -121,9 +122,7 @@ function PaymentSubmitForm({ stores, categories, onAddPayment }){
             Store/Company
       </MenuItem>
       {storesList}
-      <FormHelperText>Store/Company</FormHelperText>
-    </Select> 
-    <br/>
+    </Select>
     </FormControl> <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;</span>
 
 
