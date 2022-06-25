@@ -2,10 +2,24 @@ import React, {useState} from "react";
 
 function Payment({payment, deletePayment}) {
   const [editingPayment, setEditingPayment] = useState(false)
-  const [newPaymentData, setNewPaymentData] = useState({})
+  const [newPaymentData, setNewPaymentData] = useState({
+      amount: "",
+      date_paid: "",
+      description: "",
+      is_need: "",
+      store_id: null,
+      category_id: null,
+  })
 
   const handleEdit = () => {
-    setNewPaymentData(payment)
+    setNewPaymentData({
+      amount: payment.amount,
+      date_paid: payment.date_paid,
+      description: payment.description,
+      is_need: payment.isNeed,
+      store_id: payment.store_id,
+      category_id: payment.category_id,
+    })
     setEditingPayment(!editingPayment)
   }
 
@@ -31,10 +45,12 @@ function Payment({payment, deletePayment}) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPaymentData),
+      body: JSON.stringify(newPaymentData)
     })
       .then((r) => r.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+      })
   }
 
   const handleDelete = () => {
@@ -82,10 +98,10 @@ function Payment({payment, deletePayment}) {
         <input type="text" name="description" value={newPaymentData.description} onChange={handleChange}/>
       </td>
       <td>
-        {newPaymentData.isNeed}
+        {payment.isNeed}
       </td>
-      <td>{newPaymentData.store.name}</td>
-      <td>{newPaymentData.category.category_type}</td>
+      <td>{payment.store.name}</td>
+      <td>{payment.category.category_type}</td>
       <td> 
       {!editingPayment ? 
         <button type="button" className="btn btn-primary" onClick={ handleEdit }>
