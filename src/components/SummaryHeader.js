@@ -55,7 +55,7 @@ function SummaryHeader({payments}){
     setNeeds(() => sumOfPayments(neededPurchases))
     setWants(() => sumOfPayments(wantedPurchases))
     setSavings(leftoverIncome)
-    })
+    },[payments, leftoverIncome])
     
 
 
@@ -65,30 +65,23 @@ function SummaryHeader({payments}){
       return sumOfPayments.toFixed(2)
     }
 
-  const wantsPercentage = () => {
-    if (wants === 0 ){
-      return "0"
-    }
-    else {
-      return (wants/monthlyIncome)*100
-    }
-  } 
-  const needsPercentage = () => {
-    if (wants === 0 ){
-      return "0"
-    }
-    else {
-      return (needs/monthlyIncome)*100
-    }
-  } 
-  const savingsPercentage = () => {
-    if (wants === 0 ){
-      return "0"
-    }
-    else {
-      return (savings/monthlyIncome)*100
-    }
-  } 
+
+    function percIncrease(a, monthlyIncome) {
+      if(monthlyIncome !== 0) {
+        return (a/monthlyIncome)*100
+      } else {
+        setMonthlyIncome(0)
+      }
+          
+  }
+
+  const wantsPercentage = (wants/monthlyIncome)*100
+   
+
+  const needsPercentage = (needs/monthlyIncome)*100
+   
+  const savingsPercentage = (savings/monthlyIncome)*100
+   
 
 
   

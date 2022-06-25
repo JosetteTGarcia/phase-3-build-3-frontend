@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import Payment from './Payment';
+
+
 
 function AllPayments({
   payments,
@@ -17,6 +19,7 @@ function AllPayments({
 
   
   return (
+    <div>
     <table className="table table-striped">
       <thead>
         <tr>
@@ -27,10 +30,17 @@ function AllPayments({
           <th scope="col">Store</th>
           <th scope="col">Category</th>
           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
         </tr>
       </thead>
     <tbody>{paymentRows}</tbody>
     </table>
+
+    </div>
+
+    
+
+
   )
 
 }
