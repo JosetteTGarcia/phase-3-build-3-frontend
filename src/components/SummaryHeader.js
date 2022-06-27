@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SummaryHeader({payments}){
   const classes = useStyles();
-  let leftoverIncome 
   const [monthlyIncome, setMonthlyIncome] = useState(0)
   const [newFunds, setNewFunds] = useState("")
   const [paymentsTotal, setPaymentsTotal] = useState(0)
@@ -41,12 +40,12 @@ function SummaryHeader({payments}){
     } else {
       setSavings((monthlyIncome - paymentsTotal).toFixed(2))
     }
-    console.log(savings)
   }, [monthlyIncome, savings, paymentsTotal])
 
 
 
   useEffect(() => {
+    //arrays for different purchases
     let neededPurchases = []
     let wantedPurchases = []
     let allPurchases = []
@@ -63,57 +62,42 @@ function SummaryHeader({payments}){
       allPurchases = neededPurchases.concat(wantedPurchases)
       return (neededPurchases , wantedPurchases, allPurchases)
     })
+
+    //calculates any leftover income after payments & sets savings 
+    //(makes sure NaN or Infinity doesn't appear if we start with 0 somewhere)
     calculateLeftoverIncome()
     
-    // console.log(sumOfPayments(neededPurchases))
-    // console.log(sumOfPayments(wantedPurchases))
+    //set states pasted on arrays
     setPaymentsTotal(() => sumOfPayments(allPurchases))
     setNeeds(() => sumOfPayments(neededPurchases))
     setWants(() => sumOfPayments(wantedPurchases))
-    // setSavings(leftoverIncome)
-    // console.log(leftoverIncome)
-    },[payments, leftoverIncome, monthlyIncome, calculateLeftoverIncome])
+    },[payments, monthlyIncome, calculateLeftoverIncome])
     
 
 
-
+//calculates totals of arrays created in useState
     function sumOfPayments(paymentArray){
       const sumOfPayments = paymentArray.reduce((previousAmount, a) =>  { return previousAmount + a}, 0)
       return sumOfPayments
     }
 
+
+    // calculates percentages
+    // if the state is below 0 - set it to 0 (prevents "savings" from going negative)
+    // if  savings is below or equal to 0, only calculate based on total spent, not monthly monthlyIncome
+    // else calculate percentages for all 3 based on monly income
+
     function percIncrease(a) {
       let percentage
       if(a < 0){
         percentage = 0
-        console.log(" one")
       } else if(savings <= 0) {
         percentage = (a/(needs + wants))*100
-        console.log(a)
-        console.log(needs + wants)
-        console.log(percentage)
       } else {
         percentage = (a/monthlyIncome)*100
-        console.log(" three")
       }
     return percentage.toFixed(2)
   }
-
-
-    
-//   function calculate(){
-//     var pPos = parseInt($('#pointspossible').val()); 
-//     var pEarned = parseInt($('#pointsgiven').val());
-//     var perc="";
-//     if(isNaN(pPos) || isNaN(pEarned)){
-//         perc=" ";
-//        }else{
-//        perc = ((pEarned/pPos) * 100).toFixed(3);
-//        }
-
-//     $('#pointsperc').val(perc);
-// }
-
 
   
     
