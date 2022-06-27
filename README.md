@@ -6,9 +6,9 @@
 
 This app is designed to help you take control of your money! We follow the philosophy that your monthly income should be broken down in to 3 categories: Wants, Needs, and Savings. 
 
-- 50% Towards Needs: Shelter, Food, Living Expenses
-- 30% Towards Wants: Those items that make you happy but don't keep you alive
-- 20% Towards Savings: Save for a goal, emergencies, or even a bigger purchase
+- `50% Towards Needs`: Shelter, Food, Living Expenses
+- `30% Towards Wants`: Those items that make you happy but don't keep you alive
+- `20% Towards Savings`: Save for a goal, emergencies, or even a bigger purchase
 
 Every day that you track your spending, you will begin to be more aware of your habits! This app aims to remove the burden of guessing how much you are saving for the month and stay on track with personal saving goals. 
 
