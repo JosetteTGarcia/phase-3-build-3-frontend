@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 
 function Payment({payment, deletePayment, onSuccessfulEdit}) {
   const [editingPayment, setEditingPayment] = useState(false)

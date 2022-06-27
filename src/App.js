@@ -1,9 +1,10 @@
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {  BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import './App.css';
 import AllPayments from './components/AllPayments'
 import Home from './components/Home'
 import NavBar from './components/NavBar';
+import SummaryHeader from './components/SummaryHeader';
 
 
 
@@ -37,14 +38,17 @@ function App() {
   return (
     <Router>
       <NavBar/>
+      <SummaryHeader payments={payments}/>
       <Routes>
-            <Route path="/" element={<Home payments={payments}  onAddPayment={addPayment} />} />
-            <Route path="/allpayments" element={<AllPayments 
-            payments={payments} 
-            deletePayment={deletePayment}
-            onSuccessfulEdit={handleEditPayment}
-            />} />
-        </Routes>
+          <Route path="/" element={<Home payments={payments}  onAddPayment={addPayment} />} />
+          <Route path="/allpayments" element={
+              <AllPayments 
+              payments={payments} 
+              deletePayment={deletePayment}
+              onSuccessfulEdit={handleEditPayment}
+                />
+              }/>
+      </Routes>
     </Router>
   );
 }

@@ -1,7 +1,6 @@
 import React, {useEffect, useState}from 'react'
 import { makeStyles, Grid } from '@material-ui/core';
 import PaymentSubmitForm from './PaymentSubmitForm';
-import SummaryHeader from './SummaryHeader';
 import TopCatgories from './TopCategories';
 import TopStores from './TopStores';
 
@@ -55,11 +54,6 @@ function Home({onAddPayment, payments}){
     
   return(
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs>
-          <SummaryHeader payments={payments}/>
-        </Grid>
-      </Grid>
       <Grid container spacing={3}>
         <Grid item xs>
             <TopStores

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import {makeStyles, AppBar, Toolbar, Typography, Button} from "@material-ui/core";
+import { Link, NavLink} from 'react-router-dom';
+import {makeStyles, AppBar, Toolbar, Typography} from "@material-ui/core";
 
   
   const useStyles = makeStyles((theme) => ({
@@ -24,9 +24,10 @@ function NavBar(){
             <Typography variant="h6" className={classes.title}>
               Pay or Save: The App That Teaches You To Save!
             </Typography>
-            <Button color="inherit" component={Link} to="/allpayments">All Payments</Button>
-            <Button color="inherit" component={Link} to="/">Home</Button>
-
+          
+            <NavLink color="inherit" as={ Link } to="/"> Home </NavLink> <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;</span>
+            <NavLink color="inherit" as={ Link } to="/allpayments"> All Payments </NavLink>
+       
           </Toolbar>
         </AppBar>
       </div>

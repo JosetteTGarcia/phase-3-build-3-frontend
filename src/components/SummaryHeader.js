@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {TextField, Button, Paper, Grid, makeStyles, Box} from '@material-ui/core';
 
 
@@ -25,13 +25,24 @@ const useStyles = makeStyles((theme) => ({
 function SummaryHeader({payments}){
   const classes = useStyles();
 
-  const [monthlyIncome, setMonthlyIncome] = useState(0)
-  const [newFunds, setNewFunds] = useState(0)
+  const [monthlyIncome, setMonthlyIncome] = useState(1000)
+  const [newFunds, setNewFunds] = useState("")
   const [paymentsTotal, setPaymentsTotal] = useState(0)
   const [savings, setSavings] = useState(0)
   const [needs, setNeeds] = useState(0)
   const [wants, setWants] = useState(0)
-  const leftoverIncome = (monthlyIncome - paymentsTotal).toFixed(2)
+  const wantsPercentage = percIncrease(wants)
+  const needsPercentage = percIncrease(needs)
+  const savingsPercentage = percIncrease(savings)
+
+
+  const leftoverIncome = useCallback(() => {
+    if (monthlyIncome === 0){
+      return 0
+    } else {
+      return (monthlyIncome - paymentsTotal).toFixed(2)
+    }
+  }, [monthlyIncome, paymentsTotal])
 
   useEffect(() => {
     let neededPurchases = []
@@ -55,6 +66,7 @@ function SummaryHeader({payments}){
     setNeeds(() => sumOfPayments(neededPurchases))
     setWants(() => sumOfPayments(wantedPurchases))
     setSavings(leftoverIncome)
+    console.log(monthlyIncome)
     },[payments, leftoverIncome])
     
 
@@ -66,22 +78,30 @@ function SummaryHeader({payments}){
     }
 
 
-    function percIncrease(a, monthlyIncome) {
-      if(monthlyIncome !== 0) {
-        return (a/monthlyIncome)*100
+    function percIncrease(a) {
+      let percentage
+      if(savings === 0 || monthlyIncome === 0) {
+        percentage = (a/(needs+wants))*100
       } else {
-        setMonthlyIncome(0)
+        percentage = (a/monthlyIncome)*100
       }
-          
+    return percentage.toFixed(2)
   }
 
-  const wantsPercentage = (wants/monthlyIncome)*100
-   
 
-  const needsPercentage = (needs/monthlyIncome)*100
-   
-  const savingsPercentage = (savings/monthlyIncome)*100
-   
+    
+//   function calculate(){
+//     var pPos = parseInt($('#pointspossible').val()); 
+//     var pEarned = parseInt($('#pointsgiven').val());
+//     var perc="";
+//     if(isNaN(pPos) || isNaN(pEarned)){
+//         perc=" ";
+//        }else{
+//        perc = ((pEarned/pPos) * 100).toFixed(3);
+//        }
+
+//     $('#pointsperc').val(perc);
+// }
 
 
   
@@ -110,7 +130,7 @@ return (
   <Grid item xs={4}>
     <Paper className={classes.paper}>
       <h1 style={{ color: (savingsPercentage > 20) ? "green": "red" }}> 
-        {isNaN(savingsPercentage) ? 0: savingsPercentage}% </h1> 
+      {isNaN(savingsPercentage) ? 0: savingsPercentage}% </h1> 
       <h3>Savings</h3>
     </Paper>
   </Grid>
