@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 function SummaryHeader({payments}){
   const classes = useStyles();
-
-  const [monthlyIncome, setMonthlyIncome] = useState(1000)
+  let leftoverIncome 
+  const [monthlyIncome, setMonthlyIncome] = useState(0)
   const [newFunds, setNewFunds] = useState("")
   const [paymentsTotal, setPaymentsTotal] = useState(0)
   const [savings, setSavings] = useState(0)
@@ -35,19 +35,22 @@ function SummaryHeader({payments}){
   const needsPercentage = percIncrease(needs)
   const savingsPercentage = percIncrease(savings)
 
-
-  const leftoverIncome = useCallback(() => {
-    if (monthlyIncome === 0){
-      return 0
+  const calculateLeftoverIncome = useCallback( () => {
+    if (monthlyIncome < 0){
+      setSavings(0)
     } else {
-      return (monthlyIncome - paymentsTotal).toFixed(2)
+      setSavings((monthlyIncome - paymentsTotal).toFixed(2))
     }
-  }, [monthlyIncome, paymentsTotal])
+    console.log(savings)
+  }, [monthlyIncome, savings, paymentsTotal])
+
+
 
   useEffect(() => {
     let neededPurchases = []
     let wantedPurchases = []
     let allPurchases = []
+
 
     //map payments and add them to array based need or want
     payments.map((payment) => {
@@ -60,30 +63,38 @@ function SummaryHeader({payments}){
       allPurchases = neededPurchases.concat(wantedPurchases)
       return (neededPurchases , wantedPurchases, allPurchases)
     })
+    calculateLeftoverIncome()
+    
     // console.log(sumOfPayments(neededPurchases))
     // console.log(sumOfPayments(wantedPurchases))
     setPaymentsTotal(() => sumOfPayments(allPurchases))
     setNeeds(() => sumOfPayments(neededPurchases))
     setWants(() => sumOfPayments(wantedPurchases))
-    setSavings(leftoverIncome)
-    console.log(monthlyIncome)
-    },[payments, leftoverIncome])
+    // setSavings(leftoverIncome)
+    // console.log(leftoverIncome)
+    },[payments, leftoverIncome, monthlyIncome, calculateLeftoverIncome])
     
 
 
 
     function sumOfPayments(paymentArray){
       const sumOfPayments = paymentArray.reduce((previousAmount, a) =>  { return previousAmount + a}, 0)
-      return sumOfPayments.toFixed(2)
+      return sumOfPayments
     }
-
 
     function percIncrease(a) {
       let percentage
-      if(savings === 0 || monthlyIncome === 0) {
-        percentage = (a/(needs+wants))*100
+      if(a < 0){
+        percentage = 0
+        console.log(" one")
+      } else if(savings <= 0) {
+        percentage = (a/(needs + wants))*100
+        console.log(a)
+        console.log(needs + wants)
+        console.log(percentage)
       } else {
         percentage = (a/monthlyIncome)*100
+        console.log(" three")
       }
     return percentage.toFixed(2)
   }
@@ -149,7 +160,7 @@ return (
   <Grid item xs={4}>
     <Paper className={classes.paper}>
       <h4> Total Income This Month:</h4>
-      <h4 >${monthlyIncome.toFixed(2)}</h4>
+      <h4 >${monthlyIncome}</h4>
     </Paper>
   </Grid>
   <Grid item xs={4}>
@@ -161,7 +172,7 @@ return (
   <Grid item xs={4}>
     <Paper className={classes.paper}>
       <h4>Unused Funds:</h4>
-      <h4>${leftoverIncome}</h4>
+      <h4>${savings}</h4>
     </Paper>
   </Grid> 
 </Grid>
